@@ -32,6 +32,5 @@ namespace XFForegroundServicePractice.Tasks
                 }
             }, token);
         }
-
     }
 }

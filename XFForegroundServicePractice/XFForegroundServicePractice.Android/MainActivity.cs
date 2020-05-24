@@ -30,6 +30,7 @@ namespace XFForegroundServicePractice.Droid
             //Forms側からのバックグラウンドタスク開始,停止のメッセージ購読
             MessagingCenter.Subscribe<StartLongRunningTaskMessage>(this, nameof(StartLongRunningTaskMessage),_=> {
                 var intent = new Intent(this, typeof(LongRunningTaskService));
+                StopService(intent);//止めないとタスクが複数実行されていくので
                 StartService(intent);
             });
             MessagingCenter.Subscribe<StopLongRunningTaskMessage>(this, nameof(StopLongRunningTaskMessage), _ => {

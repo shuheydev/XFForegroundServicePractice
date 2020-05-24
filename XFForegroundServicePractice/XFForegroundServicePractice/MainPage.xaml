@@ -10,7 +10,7 @@
     <StackLayout>
         <!--  Place new controls here  -->
         <Label
-            FontSize="50"
+            FontSize="100"
             HorizontalOptions="Center"
             Text="{Binding Message}"
             VerticalOptions="CenterAndExpand" />
