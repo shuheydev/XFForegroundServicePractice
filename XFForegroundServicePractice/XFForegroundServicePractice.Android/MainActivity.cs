@@ -28,12 +28,22 @@ namespace XFForegroundServicePractice.Droid
             LoadApplication(new App());
 
             //Forms側からのバックグラウンドタスク開始,停止のメッセージ購読
-            MessagingCenter.Subscribe<StartLongRunningTaskMessage>(this, nameof(StartLongRunningTaskMessage),_=> {
+            MessagingCenter.Subscribe<StartLongRunningTaskMessage>(this, nameof(StartLongRunningTaskMessage), _ =>
+            {
                 var intent = new Intent(this, typeof(LongRunningTaskService));
-                StopService(intent);//止めないとタスクが複数実行されていくので
-                StartService(intent);
+                StopService(intent);//タスクが重複しないように終了させてから.
+                //Android8.0以上はStartForegroundServiceを使う.
+                if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+                {
+                    StartForegroundService(intent);
+                }
+                else
+                {
+                    StartService(intent);
+                }
             });
-            MessagingCenter.Subscribe<StopLongRunningTaskMessage>(this, nameof(StopLongRunningTaskMessage), _ => {
+            MessagingCenter.Subscribe<StopLongRunningTaskMessage>(this, nameof(StopLongRunningTaskMessage), _ =>
+            {
                 var intent = new Intent(this, typeof(LongRunningTaskService));
                 StopService(intent);
             });
