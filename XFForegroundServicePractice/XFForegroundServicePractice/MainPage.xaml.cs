@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using XFForegroundServicePractice.Messages;
 
@@ -37,8 +38,19 @@ namespace XFForegroundServicePractice
             });
         }
 
-        private void Button_LongRunningTaskStart_Clicked(object sender, EventArgs e)
+        private async void Button_LongRunningTaskStart_Clicked(object sender, EventArgs e)
         {
+            //位置情報取得の許可状態を確認
+            var status = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+            if (status != PermissionStatus.Granted)
+            {
+                //許可されていなかった場合はユーザーに確認する
+                status = await Permissions.RequestAsync<Permissions.LocationAlways>();
+                //ユーザーが拒否した場合は(´・ω・`)
+                if (status != PermissionStatus.Granted)
+                    return;
+            }
+
             var message = new StartLongRunningTaskMessage();
             MessagingCenter.Send(message, nameof(StartLongRunningTaskMessage));
         }

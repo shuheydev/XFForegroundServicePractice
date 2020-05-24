@@ -13,6 +13,9 @@ namespace XFForegroundServicePractice.Tasks
     {
         public async Task RunCounter(CancellationToken token)
         {
+            //GPSの精度をHighに
+            var request = new GeolocationRequest(GeolocationAccuracy.High);
+
             await Task.Run(async () =>
             {
                 for (long i = 0; i < long.MaxValue; i++)
@@ -20,10 +23,15 @@ namespace XFForegroundServicePractice.Tasks
                     token.ThrowIfCancellationRequested();
 
                     await Task.Delay(1000);
+
+                    //ここから
+                    var location = await Geolocation.GetLocationAsync(request);
+
                     var message = new TickedMessage
                     {
-                        Message = i.ToString()
+                        Message = $"Count : {i.ToString()}, Lat = {location.Latitude}, Lon = {location.Longitude}"
                     };
+                    //ここまで
 
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
