@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XFForegroundServicePractice.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackLayout>
+        <!--  Place new controls here  -->
+        <Label
+            FontSize="50"
+            HorizontalOptions="Center"
+            Text="{Binding Message}"
+            VerticalOptions="CenterAndExpand" />
+        <Button
+            x:Name="Button_LongRunningTaskStart"
+            Clicked="Button_LongRunningTaskStart_Clicked"
+            Text="Start Task" />
+        <Button
+            x:Name="Button_LongRunningTaskStop"
+            Clicked="Button_LongRunningTaskStop_Clicked"
+            Text="Stop Task" />
+    </StackLayout>
+
+</ContentPage>
