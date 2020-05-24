@@ -89,7 +89,7 @@ namespace XFForegroundServicePractice.Droid.Services
 　●START_STICKY_COMPATIBLILITY
 　　START_STICKYの互換バージョンです。Android2.0未満ではこれがデフォルト設定です。
              */
-            return StartCommandResult.Sticky;
+            return StartCommandResult.NotSticky;
         }
 
         public override void OnDestroy()

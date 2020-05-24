@@ -54,5 +54,13 @@ namespace XFForegroundServicePractice.Droid
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            //この終了のさせ方は正しいのだろうか
+            var intent = new Intent(this, typeof(LongRunningTaskService));
+            StopService(intent);
+        }
     }
 }
