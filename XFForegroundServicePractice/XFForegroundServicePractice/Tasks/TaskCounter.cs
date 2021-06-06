@@ -14,7 +14,8 @@ namespace XFForegroundServicePractice.Tasks
         public async Task RunCounter(CancellationToken token)
         {
             //GPSの精度をHighに
-            var request = new GeolocationRequest(GeolocationAccuracy.High);
+            //2つめの引数で取得間隔を設定できる。timeoutってなってるけど。
+            var request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(1));
 
             await Task.Run(async () =>
             {
@@ -22,7 +23,6 @@ namespace XFForegroundServicePractice.Tasks
                 {
                     token.ThrowIfCancellationRequested();
 
-                    await Task.Delay(1000);
 
                     //ここから
                     var location = await Geolocation.GetLocationAsync(request);

@@ -45,7 +45,7 @@ namespace XFForegroundServicePractice
             if (status != PermissionStatus.Granted)
             {
                 //許可されていなかった場合はユーザーに確認する
-                status = await Permissions.RequestAsync<Permissions.LocationAlways>();
+                status = await Permissions.RequestAsync<Permissions.LocationAlways>();//Alwaysを承認してもらわないと困るんだな。バックグラウンドだから。
                 //ユーザーが拒否した場合は(´・ω・`)
                 if (status != PermissionStatus.Granted)
                     return;
